@@ -140,57 +140,57 @@ func (self Metadata) GetSubMetadata(name string) Metadata {
 
 // Предопределенные имена полей метаданных.
 const (
-	metanameTitle       = "title"       // Заголовок
-	metanameSubtitle    = "subtitle"    // Подзаголовок
-	metanameDescription = "description" // Описание
-	metanameKeywords    = "keywords"    // Ключевые слова
-	metanameTags        = "tags"        // Теги
-	metanameCategories  = "categories"  // Категории
-	metanameDate        = "date"        // Дата
-	metanameAuthor      = "author"      // Автор
-	metanameTemplate    = "layout"      // Название шаблона
-	metanameLang        = "lang"        // Язык
-	metanameDraft       = "draft"       // Флаг черновика
+	MetanameTitle       = "title"       // Заголовок
+	MetanameSubtitle    = "subtitle"    // Подзаголовок
+	MetanameDescription = "description" // Описание
+	MetanameKeywords    = "keywords"    // Ключевые слова
+	MetanameTags        = "tags"        // Теги
+	MetanameCategories  = "categories"  // Категории
+	MetanameDate        = "date"        // Дата
+	MetanameAuthor      = "author"      // Автор
+	MetanameTemplate    = "layout"      // Название шаблона
+	MetanameLang        = "lang"        // Язык
+	MetanameDraft       = "draft"       // Флаг черновика
 )
 
 // Title возвращает название.
 func (self Metadata) Title() string {
-	return self.Get(metanameTitle)
+	return self.Get(MetanameTitle)
 }
 
 // Subtitle возвращает подзаголовок.
 func (self Metadata) Subtitle() string {
-	return self.Get(metanameSubtitle)
+	return self.Get(MetanameSubtitle)
 }
 
 // Description возвращает описание.
 func (self Metadata) Description() string {
-	return self.Get(metanameDescription)
+	return self.Get(MetanameDescription)
 }
 
 // Keywords возвращает список ключевых слов.
 func (self Metadata) Keywords() []string {
-	return self.GetQuickList(metanameKeywords)
+	return self.GetQuickList(MetanameKeywords)
 }
 
 // Tags возвращает список тегов.
 func (self Metadata) Tags() []string {
-	return self.GetQuickList(metanameTags)
+	return self.GetQuickList(MetanameTags)
 }
 
 // Categories возвращает список категорий.
 func (self Metadata) Categories() []string {
-	return self.GetList(metanameCategories)
+	return self.GetList(MetanameCategories)
 }
 
 // Layout возвращает название шаблона.
 func (self Metadata) Layout() string {
-	return self.Get(metanameTemplate)
+	return self.Get(MetanameTemplate)
 }
 
 // Authors возвращает список авторов.
 func (self Metadata) Authors() []string {
-	return self.GetList(metanameAuthor)
+	return self.GetList(MetanameAuthor)
 }
 
 // Author возвращает первого автора из списка авторов.
@@ -200,5 +200,10 @@ func (self Metadata) Author() string {
 
 // Date возвращает дату из метаинформации.
 func (self Metadata) Date() time.Time {
-	return self.GetDate(metanameDate)
+	return self.GetDate(MetanameDate)
+}
+
+// Lang возвращает язык документа.
+func (self Metadata) Lang() string {
+	return self.Get(MetanameLang)
 }
