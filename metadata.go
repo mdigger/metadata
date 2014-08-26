@@ -17,7 +17,10 @@ type Metadata map[string]interface{}
 // Get возвращает строковое представление значения, содержащегося в метаданных под указанным
 // именем. В том случае, если данных с таким именем нет, то будет возвращена пустая строка.
 func (self Metadata) Get(name string) string {
-	return fmt.Sprint(self[name])
+	if result := self[name]; result != nil {
+		return strings.TrimSpace(fmt.Sprint(result))
+	}
+	return ""
 }
 
 // GetQuickList возвращает значение, хранящееся под указанным именем в виде списка строк.
@@ -170,7 +173,7 @@ func (self Metadata) Description() string {
 
 // Keywords возвращает список ключевых слов.
 func (self Metadata) Keywords() []string {
-	return self.GetQuickList(MetanameKeywords)
+	return self.GetList(MetanameKeywords)
 }
 
 // Tags возвращает список тегов.
