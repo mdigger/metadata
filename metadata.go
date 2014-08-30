@@ -125,6 +125,19 @@ func (self Metadata) GetBool(name string) bool {
 	}
 }
 
+// GetInt возвращает числовое значение или ноль.
+func (self Metadata) GetInt(name string) int {
+	switch data := self[name].(type) {
+	case string:
+		value, _ := strconv.Atoi(data)
+		return value
+	case int:
+		return data
+	default:
+		return 0
+	}
+}
+
 // GetSubMetadata возвращает значение с указанным ключем как метаданные.
 func (self Metadata) GetSubMetadata(name string) Metadata {
 	switch data := self[name].(type) {
