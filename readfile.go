@@ -2,8 +2,9 @@ package metadata
 
 import (
 	"bytes"
-	"gopkg.in/yaml.v1"
 	"io/ioutil"
+
+	"gopkg.in/yaml.v2"
 )
 
 // Разделитель метаданных от данных.

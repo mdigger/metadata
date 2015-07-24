@@ -17,8 +17,8 @@ type Metadata map[string]interface{}
 // Get возвращает строковое представление значения, содержащегося в метаданных под указанным
 // именем. В том случае, если данных с таким именем нет, то будет возвращена пустая строка.
 func (self Metadata) Get(name string) string {
-	if result := self[name]; result != nil {
-		return strings.TrimSpace(fmt.Sprint(result))
+	if result, ok := self[name]; ok && result != nil {
+		return fmt.Sprint(result)
 	}
 	return ""
 }
