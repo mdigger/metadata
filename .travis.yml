@@ -1,0 +1,10 @@
+language: go
+go:
+- tip
+install:
+- go get golang.org/x/tools/cmd/cover
+- go get -t -v ./...
+script:
+- go test -v -race -cover -coverprofile=coverage.out
+notifications:
+  email: false
