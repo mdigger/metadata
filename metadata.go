@@ -1,5 +1,5 @@
-// Библиотека для разбора и работы с метаданными (YAML front matter) в файлах для создания
-// статических сайтов и блогов.
+// Package metadata is a library for parsing and metadata (YAML front matter) in
+// the file to create static websites and blogs.
 package metadata
 
 import (
@@ -11,11 +11,12 @@ import (
 	"unicode"
 )
 
-// Metadata описывает представление метаданных для документов и проектов.
+// Metadata describes the metadata for documents and projects.
 type Metadata map[string]interface{}
 
-// Get возвращает строковое представление значения, содержащегося в метаданных под указанным
-// именем. В том случае, если данных с таким именем нет, то будет возвращена пустая строка.
+// Get returns a string representation of the values contained in the metadata
+// under the specified name. In that case, if the data does not already exist,
+// then an empty string is returned.
 func (self Metadata) Get(name string) string {
 	if result, ok := self[name]; ok && result != nil {
 		return fmt.Sprint(result)
@@ -23,11 +24,12 @@ func (self Metadata) Get(name string) string {
 	return ""
 }
 
-// GetQuickList возвращает значение, хранящееся под указанным именем в виде списка строк.
-// Если там изначально хранился именно список строк, то он и будет возвращен. Если же значение
-// представлено в виде строки, то оно будет разбито на несколько строк: в качестве разделителя
-// выступает любой символ, который не является буквой, цифрой, подчеркиванием или тире. Во всех
-// остальных случаях будет возвращен пустой список.
+// GetQuickList returns the value stored under the specified name in a list of
+// strings. If there was initially stored is the string list, it will be
+// returned. If the value represented as a string, then it will be broken into
+// several lines: as the delimiter stands for any symbol that is not a letter,
+// a digit, an underscore or a dash. All other cases will be returned an empty
+// list.
 func (self Metadata) GetQuickList(name string) []string {
 	switch data := self[name].(type) {
 	case []string:
@@ -47,11 +49,12 @@ func (self Metadata) GetQuickList(name string) []string {
 	}
 }
 
-// Разделитель, используемый для разделения строки на части.
+// The separator used for separating strings into parts.
 var reSplitter = regexp.MustCompile(`\s*[;,]\s*`)
 
-// GetList возвращает список строк, хранящихся под указанным именем. Если там хранится строка, то
-// она разбивается на отдельные строки. В качестве разделителей выступают запятая и точка с запятой.
+// GetList returns a list of strings stored under the specified name. If there
+// is stored a string, it is split into separate lines. As delimiters are the
+// comma and the semicolon.
 func (self Metadata) GetList(name string) []string {
 	switch data := self[name].(type) {
 	case []string:
@@ -69,8 +72,8 @@ func (self Metadata) GetList(name string) []string {
 	}
 }
 
-// SupportedDatetimeFormats содержит список поддерживаемых форматов даты и времени, которые
-// используются для разбора даты.
+// SupportedDatetimeFormats contains the list of supported formats date and time
+// that used to parse dates.
 var SupportedDatetimeFormats = []string{
 	"2006-01-02T15:04:05Z",
 	"2006-01-02T15:04:05",
@@ -86,8 +89,9 @@ var SupportedDatetimeFormats = []string{
 	"2006",
 }
 
-// GetDate возвращает значение метаданных с указанным именем как дату. Если не удалось получить
-// данные о дате или преобразовать их из исходного формата, то возвращается пустая дата.
+// GetDate returns the metadata value with the specified name as a date. If you
+// are not able to date or converted from the original format, it returns an
+// empty date.
 func (self Metadata) GetDate(name string) time.Time {
 	switch data := self[name].(type) {
 	case time.Time:
@@ -112,7 +116,7 @@ func (self Metadata) GetDate(name string) time.Time {
 	}
 }
 
-// GetBool возвращает true, если значение определено и похоже на утверждение.
+// GetBool returns true if value is defined and looks for approval.
 func (self Metadata) GetBool(name string) bool {
 	switch data := self[name].(type) {
 	case bool:
@@ -127,7 +131,7 @@ func (self Metadata) GetBool(name string) bool {
 	}
 }
 
-// GetInt возвращает числовое значение или ноль.
+// GetInt returns a numeric value or zero.
 func (self Metadata) GetInt(name string) int {
 	switch data := self[name].(type) {
 	case string:
@@ -140,7 +144,7 @@ func (self Metadata) GetInt(name string) int {
 	}
 }
 
-// GetSubMetadata возвращает значение с указанным ключем как метаданные.
+// GetSubMetadata returns value with the specified key as metadata.
 func (self Metadata) GetSubMetadata(name string) Metadata {
 	switch data := self[name].(type) {
 	case Metadata:
@@ -156,72 +160,72 @@ func (self Metadata) GetSubMetadata(name string) Metadata {
 	}
 }
 
-// Предопределенные имена полей метаданных.
+// Predefined names of metadata fields.
 const (
-	MetanameTitle       = "title"       // Заголовок
-	MetanameSubtitle    = "subtitle"    // Подзаголовок
-	MetanameDescription = "description" // Описание
-	MetanameKeywords    = "keywords"    // Ключевые слова
-	MetanameTags        = "tags"        // Теги
-	MetanameCategories  = "categories"  // Категории
-	MetanameDate        = "date"        // Дата
-	MetanameAuthor      = "author"      // Автор
-	MetanameTemplate    = "layout"      // Название шаблона
-	MetanameLang        = "lang"        // Язык
-	MetanameDraft       = "draft"       // Флаг черновика
+	MetanameTitle       = "title"       // Title
+	MetanameSubtitle    = "subtitle"    // Subtitle
+	MetanameDescription = "description" // Description
+	MetanameKeywords    = "keywords"    // Keywords
+	MetanameTags        = "tags"        // Tags
+	MetanameCategories  = "categories"  // Category
+	MetanameDate        = "date"        // Date
+	MetanameAuthor      = "author"      // Author
+	MetanameTemplate    = "layout"      // The name of the template
+	MetanameLang        = "lang"        // Language
+	MetanameDraft       = "draft"       // The flag of the draft
 )
 
-// Title возвращает название.
+// Title returns the title.
 func (self Metadata) Title() string {
 	return self.Get(MetanameTitle)
 }
 
-// Subtitle возвращает подзаголовок.
+// Subtitle returns subtitle.
 func (self Metadata) Subtitle() string {
 	return self.Get(MetanameSubtitle)
 }
 
-// Description возвращает описание.
+// Description returns description.
 func (self Metadata) Description() string {
 	return self.Get(MetanameDescription)
 }
 
-// Keywords возвращает список ключевых слов.
+// Keywords returns a list of key words.
 func (self Metadata) Keywords() []string {
 	return self.GetList(MetanameKeywords)
 }
 
-// Tags возвращает список тегов.
+// Tags returns the list of tags.
 func (self Metadata) Tags() []string {
 	return self.GetQuickList(MetanameTags)
 }
 
-// Categories возвращает список категорий.
+// Categories returns the list of categories.
 func (self Metadata) Categories() []string {
 	return self.GetList(MetanameCategories)
 }
 
-// Layout возвращает название шаблона.
+// Layout returns the name of the template.
 func (self Metadata) Layout() string {
 	return self.Get(MetanameTemplate)
 }
 
-// Authors возвращает список авторов.
+// Authors returns the list of authors.
 func (self Metadata) Authors() []string {
 	return self.GetList(MetanameAuthor)
 }
 
-// Author возвращает первого автора из списка авторов.
+// Author returns the first author from the authors list.
 func (self Metadata) Author() string {
 	return self.Authors()[0]
 }
 
-// Date возвращает дату из метаинформации.
+// Date returns the date from the meta information.
 func (self Metadata) Date() time.Time {
 	return self.GetDate(MetanameDate)
 }
 
-// Lang возвращает язык документа.
+// Lang returns the language of the document.
 func (self Metadata) Lang() string {
 	return self.Get(MetanameLang)
 }

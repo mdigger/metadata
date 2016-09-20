@@ -7,10 +7,11 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-// Разделитель метаданных от данных.
+// Delimiter metadata from the data.
 var splitMetadataLine = []byte("\n---\n")
 
-// ReadFile читает файл с метаданными, разбирает его и возвращает вместе с оставшимся текстом.
+// ReadFile reads the file metadata, parses it, and returns with the rest of
+// the text.
 func ReadFile(filename string) (metadata Metadata, data []byte, err error) {
 	metadata = make(Metadata)
 	data, err = ioutil.ReadFile(filename)

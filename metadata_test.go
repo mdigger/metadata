@@ -2,8 +2,9 @@ package metadata_test
 
 import (
 	"fmt"
+
 	"github.com/mdigger/metadata"
-	"gopkg.in/yaml.v1"
+	"gopkg.in/yaml.v2"
 )
 
 func ExampleMetadata() {

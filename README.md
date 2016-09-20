@@ -1,13 +1,16 @@
-# Работа с метаданными (YAML front matter)
+# Metadata (YAML front matter)
 
-Так как уже в нескольких проектах мне пришлось каждый раз заново описывать работу с заголовками метаданных в файле (YAML front matter), то решил вынести это в отдельную библиотеку. Она еще не полная, но я потихоньку копирую в нее повторяющиеся кусочки функциональности.
+[![GoDoc](https://godoc.org/github.com/mdigger/metadata?status.svg)](https://godoc.org/github.com/mdigger/metadata)
+[![Build Status](https://travis-ci.org/mdigger/metadata.svg)](https://travis-ci.org/mdigger/metadata)
 
-В принципе, все построено вокруг простейшей концепции, что метаданные описываются классом:
+As already in several projects I had to repeatedly describe the work with the metadata headers in the file (YAML front matter), we decided to make it as a separate library. It is still not complete, but I'm slowly copy it duplicate pieces of functionality.
+
+In principle, all built around the simple concept that the metadata describes the class:
 
 ```go
 type Metadata map[string]interface{}
 ```
 
-Все остальное — ньюансы вокруг этого. Подробности смотрите в исходиках, т.к. время от времени они добавляются или изменяются, а следить каждый раз за соответствием тому, что написано в README, не очень получается.
+All the rest — the nuances around this. For details, see the source code, as from time to time they are added or changed, and to follow every time according to what is written in the README, not very good.
 
-Вкратце: это набор хелперных функций, для загрузки и разбора метаданных. Ну и, получения из них нужных значений в удобном виде с минимальным количеством кода.
+In short: this is a set of helper functions to download and parse the metadata. Well, obtaining from them the desired values in a convenient form with a minimal amount of code.
