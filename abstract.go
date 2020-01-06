@@ -6,7 +6,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// Abstract describe default abstract metadata format.
+// Abstract is a default not specified metadata format.
 type Abstract []yaml.Node
 
 // Encode encode metadata to YAML.
