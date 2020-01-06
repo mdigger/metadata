@@ -8,9 +8,6 @@ import (
 
 var reMetadata = regexp.MustCompile(`(?s)\A-{3}\n(.+)\n(?:\.{3}|-{3})\n*`)
 
-// Abstract describe default abstract metadata format.
-type Abstract = []yaml.Node
-
 // Parse split and parse metadata from markdown.
 func Parse(markdown []byte, data interface{}) ([]byte, error) {
 	result := reMetadata.FindSubmatch(markdown)
