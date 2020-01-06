@@ -35,6 +35,7 @@ func ParseDate(date string) time.Time {
 
 var reVersion = regexp.MustCompile(`^\d{1,3}(\.\d{1,3}){2,}$`)
 
+// CheckVersion check format of string with version.
 func CheckVersion(ver string) bool {
 	return reVersion.MatchString(ver)
 }
