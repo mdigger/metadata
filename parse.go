@@ -1,6 +1,7 @@
 package metadata
 
 import (
+	"io"
 	"regexp"
 
 	"gopkg.in/yaml.v3"
@@ -18,4 +19,23 @@ func Parse(markdown []byte, data interface{}) ([]byte, error) {
 		return markdown, err // metadata error
 	}
 	return markdown[len(result[0]):], nil // extract metadata
+}
+
+// Encode write YAML front matter.
+func Encode(w io.Writer, data interface{}) error {
+	if data == nil {
+		return nil
+	}
+	_, err := io.WriteString(w, "---\n")
+	if err != nil {
+		return err
+	}
+	enc := yaml.NewEncoder(w)
+	defer enc.Close()
+	err = enc.Encode(data)
+	if err != nil {
+		return err
+	}
+	_, err = io.WriteString(w, "---\n")
+	return err
 }

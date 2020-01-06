@@ -19,10 +19,5 @@ func (a Abstract) Encode(w io.Writer) error {
 	if a.IsZero() {
 		return nil
 	}
-	enc := yaml.NewEncoder(w)
-	if err := enc.Encode(a.Content[0]); err != nil {
-		enc.Close()
-		return err
-	}
-	return enc.Close()
+	return Encode(w, a.Content[0])
 }
