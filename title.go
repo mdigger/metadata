@@ -6,7 +6,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// Title of publicaion.
+// Title of publication.
 type Title struct {
 	Type   string `yaml:",omitempty"`
 	Text   string
@@ -19,7 +19,7 @@ func (title *Title) UnmarshalYAML(value *yaml.Node) error {
 	case yaml.ScalarNode:
 		*title = Title{Text: value.Value}
 	case yaml.MappingNode: // объект значений
-		type tmpType Title // aliase
+		type tmpType Title // alias
 		if err := value.Decode((*tmpType)(title)); err != nil {
 			return err
 		}
@@ -59,7 +59,7 @@ func (titles *Titles) UnmarshalYAML(value *yaml.Node) error {
 	switch value.Kind {
 	case yaml.ScalarNode:
 		*titles = Titles{Title{Type: "main", Text: value.Value}}
-	case yaml.SequenceNode: // список значений
+	case yaml.SequenceNode: // list
 		*titles = make(Titles, len(value.Content))
 		for i, node := range value.Content {
 			if err := node.Decode(&(*titles)[i]); err != nil {
@@ -72,6 +72,7 @@ func (titles *Titles) UnmarshalYAML(value *yaml.Node) error {
 	return nil
 }
 
+// title return string with title of type tt.
 func (titles Titles) title(tt string) string {
 	for _, title := range titles {
 		if title.Type == tt {

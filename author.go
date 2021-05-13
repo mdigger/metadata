@@ -6,7 +6,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// Author of publicaion.
+// Author of publication.
 type Author struct {
 	Role   string `yaml:",omitempty"`
 	Text   string

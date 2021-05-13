@@ -8,13 +8,13 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// Identifier of publicaion.
+// Identifier of publication.
 type Identifier struct {
 	Scheme string `yaml:",omitempty"`
 	Text   string
 }
 
-type idType Identifier // aliase
+type idType Identifier // alias
 
 // MarshalYAML implement yaml.Marshaler interface.
 func (id Identifier) MarshalYAML() (interface{}, error) {
