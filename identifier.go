@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/google/uuid"
+	epub "github.com/mdigger/epub3"
 	"gopkg.in/yaml.v3"
 )
 
@@ -79,7 +79,7 @@ func (ids Identifiers) MarshalYAML() (interface{}, error) {
 	case 0:
 		return &yaml.Node{
 			Kind:        yaml.ScalarNode,
-			LineComment: fmt.Sprintf("urn:uuid:%s", uuid.NewString()),
+			LineComment: epub.NewUUID(),
 		}, nil
 	case 1:
 		return ids[0], nil

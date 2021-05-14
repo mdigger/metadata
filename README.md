@@ -1,4 +1,3 @@
-# Metadata (YAML front matter)
+# Publication metadata (YAML)
 
-[![GoDoc](https://godoc.org/github.com/mdigger/metadata?status.svg)](https://godoc.org/github.com/mdigger/metadata)
 
