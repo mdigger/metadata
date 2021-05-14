@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/google/uuid"
 	"gopkg.in/yaml.v3"
 )
 
@@ -22,9 +23,9 @@ func (id Identifier) MarshalYAML() (interface{}, error) {
 		// if !strings.HasPrefix(id.Text, "urn:uuid:") {
 		// 	return fmt.Sprintf("urn:uuid:%v", id.Text), nil
 		// }
-		return id.Text, nil
+		return id.Text, nil // only id
 	}
-	return (idType)(id), nil
+	return (idType)(id), nil // as is
 }
 
 // UnmarshalYAML implement yaml.Unmarshaler interface.
@@ -78,7 +79,7 @@ func (ids Identifiers) MarshalYAML() (interface{}, error) {
 	case 0:
 		return &yaml.Node{
 			Kind:        yaml.ScalarNode,
-			LineComment: fmt.Sprintf("urn:uuid:%s", NewUUID()),
+			LineComment: fmt.Sprintf("urn:uuid:%s", uuid.NewString()),
 		}, nil
 	case 1:
 		return ids[0], nil

@@ -68,13 +68,13 @@ func (authors Authors) MarshalYAML() (interface{}, error) {
 		}
 		return author, nil
 	default:
-		var strs = make([]string, len(authors))
+		var list = make([]string, len(authors))
 		for i, author := range authors {
 			if author.Role != "author" || author.FileAs != "" {
 				return ([]Author)(authors), nil
 			}
-			strs[i] = author.Text
+			list[i] = author.Text
 		}
-		return strs, nil
+		return list, nil
 	}
 }
