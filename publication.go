@@ -102,7 +102,7 @@ func (p Publication) EPUB() (meta epub.Metadata) {
 			meta.Meta = append(meta.Meta, epub.Meta{
 				Refines:  id,
 				Property: "identifier-type",
-				Scheme:   identifier.Scheme,
+				Scheme:   "onix:codelist5",
 				Value:    identifier.Onix(),
 			})
 		}
