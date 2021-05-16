@@ -1,5 +1,7 @@
 github.com/mdigger/epub3 v0.0.0-20210514132543-143020ab525e h1:aLpV5uJYdie0u/Tglqz6PbbwC1vKbT8pXDsDf1+6hQI=
 github.com/mdigger/epub3 v0.0.0-20210514132543-143020ab525e/go.mod h1:oHCbAJ85moftx6J/nRd7Qxe7smg2pIBQgZ71Tq+z+/4=
+github.com/mdigger/epub3 v0.0.0-20210516184919-bf3b8ea2a0c2 h1:XK8TEWhHcmMU9Z8wiXCtApUn9YpOpqebnQD5uFMi6xc=
+github.com/mdigger/epub3 v0.0.0-20210516184919-bf3b8ea2a0c2/go.mod h1:oHCbAJ85moftx6J/nRd7Qxe7smg2pIBQgZ71Tq+z+/4=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b h1:h8qDotaEPuJATrMmW04NCwg7v22aHH28wwpauUhK9Oo=
