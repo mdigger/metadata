@@ -2,14 +2,15 @@ package metadata
 
 import (
 	"fmt"
+	"strings"
 
 	"gopkg.in/yaml.v3"
 )
 
 // Author of publication.
 type Author struct {
-	Role   string `yaml:",omitempty"`
-	Text   string
+	Role   string `yaml:"role,omitempty"`
+	Text   string `yaml:"text"`
 	FileAs string `yaml:"file-as,omitempty"`
 }
 
@@ -26,10 +27,12 @@ func (author *Author) UnmarshalYAML(value *yaml.Node) error {
 	default:
 		return fmt.Errorf("unsupported author type: %v", value.Kind)
 	}
-	if author.Role == "" {
-		author.Role = "author"
-	}
 	return nil
+}
+
+// MarkCode return MARC Code string for Author Role.
+func (author Author) MARC() string {
+	return MARCCodes[strings.ToLower(author.Role)]
 }
 
 // Authors is a list of Author.
@@ -39,7 +42,7 @@ type Authors []Author
 func (authors *Authors) UnmarshalYAML(value *yaml.Node) error {
 	switch value.Kind {
 	case yaml.ScalarNode:
-		*authors = Authors{Author{Role: "author", Text: value.Value}}
+		*authors = Authors{Author{Text: value.Value}}
 	case yaml.SequenceNode:
 		*authors = make(Authors, len(value.Content))
 		for i, node := range value.Content {
@@ -63,14 +66,14 @@ func (authors Authors) MarshalYAML() (interface{}, error) {
 		}, nil
 	case 1:
 		var author = authors[0]
-		if author.Role == "author" && author.FileAs == "" {
+		if author.Role == "" && author.FileAs == "" {
 			return author.Text, nil
 		}
 		return author, nil
 	default:
 		var list = make([]string, len(authors))
 		for i, author := range authors {
-			if author.Role != "author" || author.FileAs != "" {
+			if author.Role != "" || author.FileAs != "" {
 				return ([]Author)(authors), nil
 			}
 			list[i] = author.Text

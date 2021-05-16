@@ -10,9 +10,12 @@ import (
 )
 
 // Identifier of publication.
+//
+// Valid values for scheme are ISBN-10, GTIN-13, UPC, ISMN-10, DOI, LCCN,
+// GTIN-14, ISBN-13, Legal deposit number, URN, OCLC, ISMN-13, ISBN-A, JP, OLCC.
 type Identifier struct {
 	Scheme string `yaml:",omitempty"`
-	Text   string
+	Text   string `yaml:"text"`
 }
 
 type idType Identifier // alias
@@ -26,6 +29,34 @@ func (id Identifier) MarshalYAML() (interface{}, error) {
 		return id.Text, nil // only id
 	}
 	return (idType)(id), nil // as is
+}
+
+// Scheme to Onix CodeList 5 mapper.
+// https://onix-codelists.io/codelist/5
+var SchemeToOnix = map[string]string{
+	"ISBN-10":              "02",
+	"GTIN-13":              "03",
+	"UPC":                  "04",
+	"ISMN-10":              "05",
+	"DOI":                  "06",
+	"LCCN":                 "13",
+	"GTIN-14":              "14",
+	"ISBN-13":              "15",
+	"Legal deposit number": "17",
+	"URN":                  "22",
+	"OCLC":                 "23",
+	"ISMN-13":              "25",
+	"ISBN-A":               "26",
+	"JP":                   "27",
+	"OLCC":                 "28",
+}
+
+// Onix return string with Onix CodeList 5: Product identifier type
+func (id Identifier) Onix() string {
+	if onix, ok := SchemeToOnix[id.Scheme]; ok {
+		return onix
+	}
+	return "01" // Proprietary
 }
 
 // UnmarshalYAML implement yaml.Unmarshaler interface.

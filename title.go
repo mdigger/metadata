@@ -7,9 +7,11 @@ import (
 )
 
 // Title of publication.
+//
+// Valid values for type are main, subtitle, short, collection, edition, extended.
 type Title struct {
 	Type   string `yaml:",omitempty"`
-	Text   string
+	Text   string `yaml:"text"`
 	FileAs string `yaml:"file-as,omitempty"`
 }
 
@@ -18,8 +20,8 @@ func (title *Title) UnmarshalYAML(value *yaml.Node) error {
 	switch value.Kind {
 	case yaml.ScalarNode:
 		*title = Title{Text: value.Value}
-	case yaml.MappingNode: // объект значений
-		type tmpType Title // alias
+	case yaml.MappingNode:
+		type tmpType Title
 		if err := value.Decode((*tmpType)(title)); err != nil {
 			return err
 		}
@@ -45,7 +47,7 @@ func (titles Titles) MarshalYAML() (interface{}, error) {
 		}, nil
 	case 1:
 		var title = titles[0]
-		if title.Type == "main" && title.FileAs == "" {
+		if (title.Type == "" || title.Type == "main") && title.FileAs == "" {
 			return title.Text, nil
 		}
 		return title, nil

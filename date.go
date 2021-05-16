@@ -8,6 +8,8 @@ import (
 )
 
 // Date subscribe the publication date.
+//
+// A string value in YYYY-MM-DD format. (Only the year is necessary.)
 type Date string
 
 // UnmarshalYAML implement yaml.Unmarshaler interface.
