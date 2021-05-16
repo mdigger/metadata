@@ -4,6 +4,8 @@ import (
 	"encoding/xml"
 	"os"
 	"testing"
+
+	"gopkg.in/yaml.v3"
 )
 
 func TestPublicationConverter(t *testing.T) {
@@ -32,7 +34,20 @@ date: 2021-01
 		t.Fatal(err)
 	}
 
+	yamlEnc := yaml.NewEncoder(os.Stdout)
+	yamlEnc.SetIndent(2)
+	err = yamlEnc.Encode(meta)
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = yamlEnc.Close()
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	epub := meta.EPUB()
+
+	println()
 
 	enc := xml.NewEncoder(os.Stdout)
 	enc.Indent("", "  ")
@@ -40,4 +55,6 @@ date: 2021-01
 	if err != nil {
 		t.Fatal(err)
 	}
+
+	println()
 }
