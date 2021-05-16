@@ -83,13 +83,18 @@ func (p Publication) EPUB() (meta epub.Metadata) {
 	meta.DC = "http://purl.org/dc/elements/1.1/" // add namespace
 
 	// generate ID function
-	generateID := func(prefix string, position int) string {
+	generateID := func(prefix string, position, total int) string {
+		prefix = fmt.Sprintf("pub-%s", prefix) // add prefix
+		if total <= 1 {
+			return prefix // return with prefix & id name
+		}
+		// add position number as suffix
 		return fmt.Sprintf("%s-%02d", prefix, position+1)
 	}
 
 	// identifiers
 	for i, identifier := range p.Identifier {
-		id := generateID("id", i)
+		id := generateID("id", i, len(p.Identifier))
 		meta.Identifier = append(meta.Identifier, epub.Element{
 			Value: identifier.Text, ID: id})
 
@@ -107,7 +112,7 @@ func (p Publication) EPUB() (meta epub.Metadata) {
 	for i, title := range p.Title {
 		var id string
 		if title.FileAs != "" || title.Type != "" {
-			id = generateID("title", i)
+			id = generateID("title", i, len(p.Title))
 		}
 
 		meta.Title = append(meta.Title, epub.ElementLang{
@@ -146,7 +151,7 @@ func (p Publication) EPUB() (meta epub.Metadata) {
 
 		var id string
 		if creator.FileAs != "" || role != "" {
-			id = generateID("creator", i)
+			id = generateID("creator", i, len(p.Creator))
 		}
 
 		meta.Creator = append(meta.Creator, epub.ElementLang{
@@ -176,7 +181,7 @@ func (p Publication) EPUB() (meta epub.Metadata) {
 
 		var id string
 		if contributor.FileAs != "" || role != "" {
-			id = generateID("contributor", i)
+			id = generateID("contributor", i, len(p.Contributor))
 		}
 
 		meta.Contributor = append(meta.Contributor, epub.ElementLang{
@@ -249,7 +254,7 @@ func (p Publication) EPUB() (meta epub.Metadata) {
 
 	// collection
 	if p.BelongsToCollection != "" {
-		id := generateID("collection", 0)
+		id := generateID("collection", 0, 1)
 		meta.Meta = append(meta.Meta, epub.Meta{
 			ID:       id,
 			Property: "belongs-to-collection",
