@@ -27,6 +27,14 @@ identifier:
 publisher:  My Press
 rights: © 2007 John Smith, CC BY-NC
 date: 2021-01
+stylesheet:
+- 1
+- 2
+- 3
+subject:
+- 1
+- 2
+- 3
 ...`
 
 	meta, err := Parse([]byte(data))

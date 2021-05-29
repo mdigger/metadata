@@ -17,7 +17,7 @@ type Publication struct {
 	Date                Date        `yaml:"date,omitempty"`
 	Creator             Authors     `yaml:"creator"`
 	Contributor         Authors     `yaml:"contributor,omitempty"`
-	Subject             Subject     `yaml:"subject,omitempty,flow"`
+	Subject             Strings     `yaml:"subject,omitempty,flow"`
 	Description         string      `yaml:"description,omitempty"`
 	Type                string      `yaml:"type,omitempty"`
 	Format              string      `yaml:"format,omitempty"`
@@ -60,6 +60,10 @@ func Parse(data []byte) (*Publication, error) {
 			pub.Stylesheets = append(pub.Stylesheets, css)
 		case []string:
 			pub.Stylesheets = append(pub.Stylesheets, css...)
+		case []interface{}:
+			for _, item := range css {
+				pub.Stylesheets = append(pub.Stylesheets, fmt.Sprintf("%v", item))
+			}
 		default:
 			return nil, fmt.Errorf("bad stylesheet value type: %T", css)
 		}
